@@ -18,11 +18,9 @@ namespace Triangle_vorm
             b = B;
             c = C;
         }
-        public Triangle(double A, double B, double C, double P)
+        public Triangle(double P)
         {
-            a = A;
-            b = B;
-            c = C;
+
             per = P;
         }
         public string outputA()

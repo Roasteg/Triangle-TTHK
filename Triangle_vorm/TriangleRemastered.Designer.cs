@@ -1,4 +1,6 @@
-﻿namespace Triangle_vorm
+﻿using System;
+
+namespace Triangle_vorm
 {
     partial class TriangleRemastered
     {
