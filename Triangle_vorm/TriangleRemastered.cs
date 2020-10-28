@@ -503,15 +503,15 @@ namespace Triangle_vorm
             else if (hBox.Checked == true)
             {
                 
-                if(Convert.ToDouble(hNumeric.Text) % 3 == 0)
+                if(Convert.ToDouble(hNumeric.Text) % 3 == 0 && Convert.ToDouble(hNumeric.Text) > 0)
                 {
                     double per, a, b, c;
                     per = Convert.ToDouble(hNumeric.Text);
-                    double dbl = Convert.ToDouble(hNumeric.Text) ; 
-
-
+                    double dbl = Convert.ToDouble(hNumeric.Text) ;
                     Triangle triangle = new Triangle(per);
-                    double perr = Convert.ToDouble(hNumeric.Text) / 3;
+                    double perr = Convert.ToDouble(hNumeric.Text) / 3; //нахождение сторон
+                    double height = Math.Floor(Math.Sqrt((perr * perr) - ((perr * perr) / 4))); //нахождение высоты
+                    double hlperr = perr / 2; //полупериметр
                     listView1.Items.Add("Сторона a");
                     listView1.Items.Add("Сторона b");
                     listView1.Items.Add("Сторона c");
@@ -524,8 +524,8 @@ namespace Triangle_vorm
                     listView1.Items[1].SubItems.Add(Convert.ToString(perr));
                     listView1.Items[2].SubItems.Add(Convert.ToString(perr));   
                     listView1.Items[3].SubItems.Add(Convert.ToString(dbl));
-                    listView1.Items[4].SubItems.Add(Convert.ToString(Math.Floor(Math.Sqrt(dbl * (dbl - perr) * (perr - dbl) * (perr - dbl)))));
-                    listView1.Items[5].SubItems.Add(Convert.ToString(Math.Floor(2 * Math.Sqrt(perr * (perr - dbl) * (perr - dbl) * (perr - dbl)) / dbl)));
+                    listView1.Items[4].SubItems.Add(Convert.ToString((0.5*(perr*height))));
+                    listView1.Items[5].SubItems.Add(Convert.ToString(height));
                     listView1.Items[7].SubItems.Add("Равносторонний");
                     listView1.Items[6].SubItems.Add("Существует");
                     listView1.Items.Add("Угол альфа");
@@ -534,7 +534,31 @@ namespace Triangle_vorm
                     listView1.Items[9].SubItems.Add(Convert.ToString(Math.Round(Math.Acos(((dbl * dbl) + (dbl * dbl) - (dbl * dbl)) / (2 * dbl * dbl)) * (180 / Math.PI))));
                     listView1.Items.Add("Угол гамма");
                     listView1.Items[10].SubItems.Add(Convert.ToString(Math.Round(Math.Acos(((dbl * dbl) + (dbl * dbl) - (dbl * dbl)) / (2 * dbl * dbl)) * (180 / Math.PI))));
+                    if (triangle.getCornerAlpha() == 90 || triangle.getCornerBeta() == 90 || triangle.getCornerGamma() == 90)
+                    {
 
+                        Point p1 = new Point(10, 5);
+                        Point p2 = new Point(150, 5);
+                        Point p3 = new Point(150, 50);
+                        Point[] list = new Point[3] { p1, p2, p3 };
+                        gp.DrawPolygon(pe, list);
+                    }
+                    else if (triangle.getCornerAlpha() > 90 || triangle.getCornerBeta() > 90 || triangle.getCornerGamma() > 90)
+                    {
+                        Point p1 = new Point(10, 5);
+                        Point p2 = new Point(150, 5);
+                        Point p3 = new Point(130, 70);
+                        Point[] list2 = new Point[3] { p1, p2, p3 };
+                        gp.DrawPolygon(pe, list2);
+                    }
+                    else
+                    {
+                        Point p1 = new Point(10, 5);
+                        Point p2 = new Point(150, 5);
+                        Point p3 = new Point(75, 60);
+                        Point[] list = new Point[3] { p1, p2, p3 };
+                        gp.DrawPolygon(pe, list);
+                    }
                 }
                 else
                 {
